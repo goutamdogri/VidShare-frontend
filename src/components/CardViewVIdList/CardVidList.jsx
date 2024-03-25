@@ -39,7 +39,11 @@ function CardVidList() {
   };
 
   useEffect(() => {
-    document.getElementById("scrollingEffect").addEventListener("scroll", handelInfiniteScroll);
+    const elem = document.getElementById("scrollingEffect")
+    elem.addEventListener("click", () => {
+      elem.innerHTML = "goutam"
+    })
+    // .addEventListener("scroll", handelInfiniteScroll);
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
   }, []);
 
