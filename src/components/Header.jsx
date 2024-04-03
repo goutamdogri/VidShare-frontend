@@ -1,7 +1,15 @@
 // import Logo from "../assets/logo.jsx";
-import Logo from '../assets/logo.svg?react';
+import Logo from "../assets/logo.svg?react";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
+
+  function handleSearch(e) {
+    e.preventDefault();
+    return navigate("/search");
+  }
+
   return (
     <header className="sticky inset-x-0 top-0 z-50 w-full border-b border-white bg-[#121212] px-4">
       <nav className="mx-auto flex max-w-7xl items-center py-2">
@@ -11,12 +19,32 @@ function Header() {
         </div>
 
         {/* search box with search button */}
-        <div className="relative mx-auto hidden w-full max-w-md overflow-hidden sm:block">
-          <input
-            className="w-full border bg-transparent py-1 pl-8 pr-3 placeholder-white outline-none sm:py-2"
-            placeholder="Search"
-          />
-          <span className="absolute left-2.5 top-1/2 inline-block -translate-y-1/2">
+
+        <div className="relative mx-auto  w-full max-w-md overflow-hidden flex">
+          <div className="relative mx-auto  w-full max-w-md overflow-hidden">
+            <input
+              className="w-full border bg-transparent py-1 pl-3 sm:pl-5 pr-3 placeholder-white outline-none sm:py-2 rounded-l-full"
+              placeholder="Search"
+            />
+            {/* <span className="absolute left-2.5 top-1/2 inline-block -translate-y-1/2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                className=" h-4 w-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                ></path>
+              </svg>
+            </span> */}
+          </div>
+          <button onClick={handleSearch} className="ml-auto border px-1 sm:px-2 border-l-0 rounded-r-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -24,7 +52,7 @@ function Header() {
               strokeWidth="1.5"
               stroke="currentColor"
               aria-hidden="true"
-              className=" h-4 w-4"
+              className=" h-6 w-6"
             >
               <path
                 strokeLinecap="round"
@@ -32,37 +60,21 @@ function Header() {
                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
               ></path>
             </svg>
-          </span>
-        </div>
-        <button className="ml-auto sm:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-            className=" h-6 w-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            ></path>
-          </svg>
-        </button>
+          </button>
+          </div>
 
-        <button className="group peer ml-4 flex w-6 shrink-0 flex-wrap gap-y-1.5 sm:hidden">
-          <span className="block h-[2px] w-full bg-white group-hover:bg-[#ae7aff]"></span>
-          <span className="block h-[2px] w-2/3 bg-white group-hover:bg-[#ae7aff]"></span>
-          <span className="block h-[2px] w-full bg-white group-hover:bg-[#ae7aff]"></span>
-        </button>
+          <button className="group peer ml-4 flex w-6 shrink-0 flex-wrap gap-y-1.5 sm:hidden">
+            <span className="block h-[2px] w-full bg-white group-hover:bg-[#ae7aff]"></span>
+            <span className="block h-[2px] w-2/3 bg-white group-hover:bg-[#ae7aff]"></span>
+            <span className="block h-[2px] w-full bg-white group-hover:bg-[#ae7aff]"></span>
+          </button>
+        
 
         <div className="fixed inset-y-0 right-0 flex w-full max-w-xs shrink-0 translate-x-full flex-col border-l border-white bg-[#121212] duration-200 hover:translate-x-0 peer-focus:translate-x-0 sm:static sm:ml-4 sm:w-auto sm:translate-x-0 sm:border-none">
           <div className="relative flex w-full items-center justify-between border-b border-white px-4 py-2 sm:hidden">
             <span className="inline-block w-12">
               <svg
-                style={{width: "100%"}}
+                style={{ width: "100%" }}
                 viewBox="0 0 63 64"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
