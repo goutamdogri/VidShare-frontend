@@ -1,10 +1,7 @@
-// import "./App.css";
-import Page from "./pages/Page.jsx";
-// import Home from "./components/test/Home";
+import Register from "./pages/Register.jsx";
 
 function App() {
-  return <Page />;
-  // return <Home />;
+  return <Register />;
 }
 
 export default App;

@@ -2,35 +2,48 @@ import { useEffect, useState } from "react";
 import CardVid from "./CardVid.jsx";
 
 function CardVidList() {
-  const [data, setData] = useState([])
+  const [videos, setVideos] = useState([]);
   const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  console.log("render check");
-  const getCardData = async () => {
-    const res = await fetch(
-      `http://localhost:8000/api/v1/videos/?page=${page}&limit=9&sortBy=title&sortType=1&userId=65e941f01875ea1787e3acbb&isPublished=all`
-    );
-    const APIdata = await res.json();
-    const vidData = APIdata.data.docs;
-    console.log(vidData);
-    setData((prev) => [...prev, ...vidData]);
+  useEffect(() => {
+    fetchMoreData();
+  }, [page]);
+
+  const fetchMoreData = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:8000/api/v1/videos/?page=${page}&limit=9&sortBy=title&sortType=1&isPublished=all`, 
+        {
+          credentials: 'include'
+        }
+      );
+      const APIdata = await res.json();
+      setVideos((prevVideos) => [...prevVideos, ...APIdata.data.docs]);
+      setLoading(false)
+      setHasMore(APIdata.data.hasNextPage);
+    } catch (error) {
+      console.error("Error fetching videos: ", error);
+    }
   };
 
   useEffect(() => {
-    getCardData();
-  }, [page]);
+    if (hasMore) {
+      document.getElementById("scrollingDiv").addEventListener("scroll", handelInfiniteScroll);
+      return () => {
+        document.getElementById("scrollingDiv").removeEventListener("scroll", handelInfiniteScroll);
+      }
+    }
+  })
 
   const handelInfiniteScroll = async () => {
-    console.log("i am in handelInfiniteScroll");
-
-    console.log("innerHeight" + window.innerHeight);
-    console.log("scrollTop" + document.documentElement.scrollTop);
-    console.log("scrollHeight" + document.documentElement.scrollHeight);
     try {
       if (
-        window.innerHeight + document.documentElement.scrollTop + 1 >=
-        document.documentElement.scrollHeight
+        window.innerHeight + document.getElementById("scrollingDiv").scrollTop + 1 >=
+        document.getElementById("scrollingDiv").scrollHeight
       ) {
+        setLoading(true);
         setPage((prev) => prev + 1);
       }
     } catch (error) {
@@ -38,24 +51,25 @@ function CardVidList() {
     }
   };
 
-  useEffect(() => {
-    const elem = document.getElementById("scrollingEffect")
-    elem.addEventListener("click", () => {
-      elem.innerHTML = "goutam"
-    })
-    // .addEventListener("scroll", handelInfiniteScroll);
-    return () => window.removeEventListener("scroll", handelInfiniteScroll);
-  }, []);
-
   return (
-    <div id="scrollingEffect" className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
+    <div className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 p-4">
-        {data.map((currVal, id) => (
+        {videos.map((currVal, id) => (
           <CardVid key={id} data={currVal} />
         ))}
       </div>
+      {loading && (
+        <div className="text-center">
+          <p className="text-white text-lg font pb-4">Loading...</p>
+        </div>
+      )}
+      {!hasMore && (
+        <div className="text-center">
+          <p className="text-white text-lg font pb-4">No more videos</p>
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
 export default CardVidList;
