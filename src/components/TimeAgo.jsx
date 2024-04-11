@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import propTypes from 'prop-types';
 
-function TimeAgo({ createdAt }) {
+function TimeAgo({ createdAt, className= "ml-1" }) {
   const [timeAgo, setTimeAgo] = useState("");
 
   useEffect(() => {
@@ -49,11 +49,12 @@ function TimeAgo({ createdAt }) {
     return () => clearInterval(interval);
   }, [createdAt]);
 
-  return <span className="ml-1">{timeAgo}</span>;
+  return <span className={className}>{timeAgo}</span>;
 }
 
 TimeAgo.propTypes = {
   createdAt: propTypes.string,
+  className: propTypes.string,
 };
 
 export default TimeAgo;

@@ -1,17 +1,23 @@
-import CardVidList from "../components/CardViewVIdList/CardVidList.jsx";
-import Header from "../components/Header.jsx";
+import CardVidList from "../components/videoList/CardVidList.jsx";
+import Header from "../components/header/Header.jsx";
 import Menubar from "../components/menu/Menubar.jsx";
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 // import NoVid from "../components/NoVid/NoVid.jsx";
 
-function Page({ endPoint = '' }) {
+function Page({ endPoint = "" }) {
   return (
     <>
-      <div id="scrollingDiv" className="h-screen overflow-y-auto bg-[#121212] text-white">
+      <div
+        id="scrollingDiv"
+        className="h-screen overflow-y-auto bg-[#121212] text-white"
+      >
         <Header />
 
         <div className="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
-          <Menubar />
+          <Menubar
+            className="lg:sticky lg:max-w-[250px]"
+            menuSpanClass="lg:inline"
+          />
 
           <CardVidList endPoint={endPoint} />
         </div>

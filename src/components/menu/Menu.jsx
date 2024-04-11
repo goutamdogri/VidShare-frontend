@@ -3,7 +3,8 @@ import propTypes from 'prop-types';
 function Menu({
     children,
     menuTitle,
-    className= ""
+    className= "",
+    menuSpanClass=""
 }) {
     return (
         <li className= {className}>
@@ -11,7 +12,7 @@ function Menu({
                 <span className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
                     {children}
                 </span>
-                <span className="block sm:hidden sm:group-hover:inline lg:inline">
+                <span className={`block sm:hidden sm:group-hover:inline ${menuSpanClass}`}>
                     {menuTitle}
                 </span>
             </button>
@@ -22,7 +23,8 @@ function Menu({
 Menu.propTypes = {
     children: propTypes.node,
     menuTitle: propTypes.string,
-    className: propTypes.string
+    className: propTypes.string,
+    menuSpanClass: propTypes.string
 }
 
 export default Menu

@@ -1,6 +1,6 @@
-import Logo from "../components/Logo.jsx";
-import Input from "../components/Input.jsx";
-import Button from "../components/Button.jsx";
+import Logo from "../components/utils/Logo.jsx";
+import Input from "../components/utils/Input.jsx";
+import Button from "../components/utils/Button.jsx";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 
@@ -27,14 +27,14 @@ function Register() {
 		try {
 			const response = await fetch('http://localhost:8000/api/v1/users/register', {
 				method: 'POST',
-				body: formData
+				body: formData,
+				credentials: "include"
 			});
 			const resJson = await response.json()
 
 			if (resJson.success) {
-				document.cookie = `accessToken=${resJson.data.accessToken}`;
-				document.cookie = `refreshToken=${resJson.data.refreshToken}`;
-				console.log("successfully registered");
+			// 	document.cookie = `accessToken=${resJson.data.accessToken}`;
+			// 	document.cookie = `refreshToken=${resJson.data.refreshToken}`;
 				navigate('/home')
 			} else {
 				// Registration failed, handle the error

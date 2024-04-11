@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Button from "../components/Button.jsx";
-import Input from "../components/Input.jsx";
-import Logo from "../components/Logo.jsx";
+import Button from "../components/utils/Button.jsx";
+import Input from "../components/utils/Input.jsx";
+import Logo from "../components/utils/Logo.jsx";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
@@ -11,11 +11,6 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const formData = new FormData();
-
-        formData.append("email", email);
-        formData.append("password", password);
 
         const requestData = {
             email: email,
@@ -28,13 +23,13 @@ function Login() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(requestData),
+                credentials: "include"
             });
             const resJson = await response.json()
 
 			if (resJson.success) {
-				document.cookie = `accessToken=${resJson.data.accessToken}`;
-				document.cookie = `refreshToken=${resJson.data.refreshToken}`;
-				console.log("successfully logged in");
+				// document.cookie = `accessToken=${resJson.data.accessToken}`;
+				// document.cookie = `refreshToken=${resJson.data.refreshToken}`;
 				navigate('/home')
             }
         } catch (error) {

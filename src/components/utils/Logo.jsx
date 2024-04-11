@@ -1,4 +1,4 @@
-import Logoicon from '../assets/logo.svg?react';
+import Logoicon from '../../assets/logo.svg?react';
 
 function Logo() {
     return (
