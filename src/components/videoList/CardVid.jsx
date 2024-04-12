@@ -3,12 +3,9 @@ import TimeAgo from '../TimeAgo.jsx';
 import { Link } from 'react-router-dom'
 
 function CardVid({ data }) {
-    function loadVideoPlayer() {
-
-    }
     return (
         <Link to={`/video/${data._id}`}>
-            <div onClick={loadVideoPlayer} className="w-full">
+            <div className="w-full">
                 <div className="relative mb-2 w-full pt-[56%]">
                     <div className="absolute inset-0">
                         <img

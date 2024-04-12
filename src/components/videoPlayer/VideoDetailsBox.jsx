@@ -3,6 +3,7 @@ import TimeAgo from "../TimeAgo.jsx";
 import PlaylistName from "./PlaylistName.jsx";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext.js";
+import apiRequest from "../../hooks/apiRequest.js";
 
 function VideoDetailsBox({ video }) {
   const [playlists, setPlaylists] = useState([]);
@@ -25,13 +26,10 @@ function VideoDetailsBox({ video }) {
 
   // getting Subscriber Count
   async function getSubscriberCount() {
+    
     try {
-      const subsRes = await fetch(
-        `http://localhost:8000/api/v1/subscriptions/subscribersCount/${video.owner._id}`,
-        { credentials: "include" }
-      );
-      const subsResJson = await subsRes.json();
-      setSubsCount(subsResJson.data.subscribersCount);
+      const subsRes = await apiRequest(`/subscriptions/subscribersCount/${video.owner._id}`);
+      setSubsCount(subsRes.data.subscribersCount);
     } catch (error) {
       console.log(error);
     }
@@ -40,12 +38,8 @@ function VideoDetailsBox({ video }) {
   // getting subscription status
   async function getSubscriptionStatus() {
     try {
-      const subscriptionStatusRes = await fetch(
-        `http://localhost:8000/api/v1/subscriptions/check/toggle/${video.owner._id}?need=check`,
-        { method: "POST", credentials: "include" }
-      );
-      const subscriptionStatusResJson = await subscriptionStatusRes.json();
-      setSubscriptionStatus(subscriptionStatusResJson.data.subscriptionStatus);
+      const subscriptionStatusRes = await apiRequest(`/subscriptions/check/toggle/${video.owner._id}?need=check`, "POST");
+      setSubscriptionStatus(subscriptionStatusRes.data.subscriptionStatus);
     } catch (error) {
       console.log(error);
     }
@@ -54,12 +48,8 @@ function VideoDetailsBox({ video }) {
   // toggle subscription
   async function toggleSubscription() {
     try {
-      const toggleSubscriptionRes = await fetch(
-        `http://localhost:8000/api/v1/subscriptions/check/toggle/${video.owner._id}?need=toggle`,
-        { method: "POST", credentials: "include" }
-      );
-      const toggleSubscriptionResJson = await toggleSubscriptionRes.json();
-      setSubscriptionStatus(toggleSubscriptionResJson.data.subscriptionStatus);
+      const toggleSubscriptionRes = await apiRequest(`/subscriptions/check/toggle/${video.owner._id}?need=toggle`, "POST");
+      setSubscriptionStatus(toggleSubscriptionRes.data.subscriptionStatus);
       getSubscriberCount();
     } catch (error) {
       console.log(error);
@@ -69,12 +59,8 @@ function VideoDetailsBox({ video }) {
   // getting Video Likes Count
   async function getVideoLikesCount() {
     try {
-      const videoLikesRes = await fetch(
-        `http://localhost:8000/api/v1/likes/video/${video._id}`,
-        { credentials: "include" }
-      );
-      const videoLikesResJson = await videoLikesRes.json();
-      setVideoLikesCount(videoLikesResJson.data.videoLikesCount);
+      const videoLikesRes = await apiRequest(`/likes/video/${video._id}`);
+      setVideoLikesCount(videoLikesRes.data.videoLikesCount);
     } catch (error) {
       console.log(error);
     }
@@ -83,12 +69,8 @@ function VideoDetailsBox({ video }) {
   // getting video like status
   async function getVideoLikeStatus() {
     try {
-      const likeStatusRes = await fetch(
-        `http://localhost:8000/api/v1/likes/check/toggle/video/${video._id}?need=check`,
-        { method: "POST", credentials: "include" }
-      );
-      const likeStatusResJson = await likeStatusRes.json();
-      setLikeStatus(likeStatusResJson.data.checkUserVideoLike);
+      const likeStatusRes = await apiRequest(`/likes/check/toggle/video/${video._id}?need=check`, "POST");
+      setLikeStatus(likeStatusRes.data.checkUserVideoLike);
     } catch (error) {
       console.log(error);
     }
@@ -97,12 +79,8 @@ function VideoDetailsBox({ video }) {
   // getting video dislike status
   async function getVideoDislikeStatus() {
     try {
-      const dislikeStatusRes = await fetch(
-        `http://localhost:8000/api/v1/dislikes/check/toggle/video/${video._id}?need=check`,
-        { method: "POST", credentials: "include" }
-      );
-      const dislikeStatusResJson = await dislikeStatusRes.json();
-      setDislikeStatus(dislikeStatusResJson.data.checkUserVideoDislike);
+      const dislikeStatusRes = await apiRequest(`/dislikes/check/toggle/video/${video._id}?need=check`, "POST");
+      setDislikeStatus(dislikeStatusRes.data.checkUserVideoDislike);
     } catch (error) {
       console.log(error);
     }
@@ -111,12 +89,8 @@ function VideoDetailsBox({ video }) {
   // toggle video like
   async function toggleVideoLike() {
     try {
-      const toggleVideoLikeRes = await fetch(
-        `http://localhost:8000/api/v1/likes/check/toggle/video/${video._id}?need=toggle`,
-        { method: "POST", credentials: "include" }
-      );
-      const toggleVideoLikeResJson = await toggleVideoLikeRes.json();
-      setLikeStatus(toggleVideoLikeResJson.data.currLikeStatus);
+      const toggleVideoLikeRes = await apiRequest(`/likes/check/toggle/video/${video._id}?need=toggle`, "POST");
+      setLikeStatus(toggleVideoLikeRes.data.currLikeStatus);
       getVideoLikesCount();
     } catch (error) {
       console.log(error);
@@ -126,12 +100,8 @@ function VideoDetailsBox({ video }) {
   // toggle video dislike
   async function toggleVideoDislike() {
     try {
-      const toggleVideoDislikeRes = await fetch(
-        `http://localhost:8000/api/v1/dislikes/check/toggle/video/${video._id}?need=toggle`,
-        { method: "POST", credentials: "include" }
-      );
-      const toggleVideoDislikeResJson = await toggleVideoDislikeRes.json();
-      setDislikeStatus(toggleVideoDislikeResJson.data.currDislikeStatus);
+      const toggleVideoDislikeRes = await apiRequest(`/dislikes/check/toggle/video/${video._id}?need=toggle`, "POST");
+      setDislikeStatus(toggleVideoDislikeRes.data.currDislikeStatus);
     } catch (error) {
       console.log(error);
     }
@@ -160,16 +130,9 @@ function VideoDetailsBox({ video }) {
 
   async function getCurrentUser() {
     try {
-      const response = await fetch(
-        "http://localhost:8000/api/v1/users/current-user",
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
-      const user = await response.json();
-      setUser(user.data);
-      return user.data;
+      const response = await apiRequest("/users/current-user");
+      setUser(response.data);
+      return response.data;
     } catch (error) {
       console.log(error);
     }
@@ -178,15 +141,8 @@ function VideoDetailsBox({ video }) {
   async function fetchPlaylist() {
     try {
       const user = await getCurrentUser();
-      const res = await fetch(
-        `http://localhost:8000/api/v1/playlist/user/${user._id}`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
-      const resJson = await res.json();
-      setPlaylists(resJson.data);
+      const res = await apiRequest(`/playlist/user/${user._id}`);
+      setPlaylists(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -194,16 +150,11 @@ function VideoDetailsBox({ video }) {
 
   async function handlePlaylistCreation() {
     try {
-      await fetch(`http://localhost:8000/api/v1/playlist/`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: newPlaylistName,
-        }),
-      });
+      const header = {"Content-Type": "application/json"};
+      const body = JSON.stringify({
+        name: newPlaylistName,
+      })
+      await apiRequest(`/playlist/`, "POST", header, body);
       setNewPlaylistName("");
       fetchPlaylist();
     } catch (error) {

@@ -1,31 +1,14 @@
 import propTypes from 'prop-types'
 import { useEffect } from 'react';
+import apiRequest from '../../hooks/apiRequest.js'
 
 function PlaylistName({ playlist, vidId }) {
 
 	async function addOrRemoveVideoFromPlaylist(checkedStatus) {
 		if(checkedStatus) {
-			try {
-				await fetch(`http://localhost:8000/api/v1/playlist/add/${vidId}/${playlist._id}`,
-					{
-						method: 'PATCH',
-						credentials: 'include'
-					}
-				)
-			} catch (error) {
-				console.log(error);
-			}
+				await apiRequest(`http://localhost:8000/api/v1/playlist/add/${vidId}/${playlist._id}`, "PATCH")
 		} else {
-			try {
-				await fetch(`http://localhost:8000/api/v1/playlist/remove/${vidId}/${playlist._id}`,
-					{
-						method: 'PATCH',
-						credentials: 'include'
-					}
-				)
-			} catch (error) {
-				console.log(error);
-			}
+				await apiRequest(`http://localhost:8000/api/v1/playlist/remove/${vidId}/${playlist._id}`, 'PATCH')
 		}
 	}
 
