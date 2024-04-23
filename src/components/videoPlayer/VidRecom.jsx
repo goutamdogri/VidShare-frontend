@@ -1,9 +1,10 @@
 import propTypes from "prop-types";
 import TimeAgo from "../TimeAgo";
+import { Link } from "react-router-dom";
 
 function VidRecom({video}) {
   return (
-    <div className="w-full gap-x-2 border pr-2 md:flex">
+    <Link to={`/video/${video._id}`} className="w-full gap-x-2 border pr-2 md:flex">
       <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
         <div className="w-full pt-[56%]">
           <div className="absolute inset-0">
@@ -28,16 +29,16 @@ function VidRecom({video}) {
         </div>
         <div className="w-full pt-1 md:pt-0">
           <h6 className="mb-1 text-sm font-semibold">{video.title}</h6>
-          <p className="mb-0.5 mt-2 text-sm text-gray-200">
+          <div className="mb-0.5 mt-2 text-sm text-gray-200">
             {video.owner.fullName}
-          </p>
+          </div>
           <p className="flex text-sm text-gray-200">
             {`${video.views} Views · `}
             <TimeAgo createdAt={video.createdAt} />
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

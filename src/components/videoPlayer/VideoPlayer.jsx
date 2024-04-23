@@ -1,6 +1,7 @@
 import propTypes from 'prop-types'
 
 function VideoPlayer({ videoFile }) {
+	console.log(videoFile);
 	return (
 		<div className="relative mb-4 w-full pt-[56%]">
 			<div className="absolute inset-0">
@@ -16,7 +17,7 @@ function VideoPlayer({ videoFile }) {
 }
 
 VideoPlayer.propTypes = {
-  videoFile: propTypes.string.isRequired,
+  videoFile: propTypes.string,
 }
 
 export default VideoPlayer

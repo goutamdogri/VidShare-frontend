@@ -7,7 +7,6 @@ function usePagination(url1, url2) {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   
-console.log(url2);
   useEffect(() => {
     fetchMoreData();
   // eslint-disable-next-line react-hooks/exhaustive-deps

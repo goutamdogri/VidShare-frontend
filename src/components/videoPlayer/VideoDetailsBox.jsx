@@ -4,6 +4,7 @@ import PlaylistName from "./PlaylistName.jsx";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext.js";
 import apiRequest from "../../hooks/apiRequest.js";
+import { Link } from "react-router-dom";
 
 function VideoDetailsBox({ video }) {
   const [playlists, setPlaylists] = useState([]);
@@ -87,6 +88,7 @@ function VideoDetailsBox({ video }) {
   }
 
   // toggle video like
+  // TODO: like count update takes too much time
   async function toggleVideoLike() {
     try {
       const toggleVideoLikeRes = await apiRequest(`/likes/check/toggle/video/${video._id}?need=toggle`, "POST");
@@ -295,17 +297,17 @@ function VideoDetailsBox({ video }) {
 
       <div className="mt-4 flex items-center justify-between">
         <div className="flex items-center gap-x-4">
-          <div className="mt-2 h-12 w-12 shrink-0">
+          <Link to={`/channel/video/${video.owner._id}`} className="mt-2 h-12 w-12 shrink-0">
             <img
               src={video.owner.avatar}
               alt="reactpatterns"
               className="h-full w-full rounded-full"
             />
-          </div>
-          <div className="block">
+          </Link>
+          <Link to={`/channel/video/${video.owner._id}`} className="block">
             <p className="text-gray-200">{video.owner?.fullName}</p>
             <p className="text-sm text-gray-400">{subsCount} Subscribers</p>
-          </div>
+          </Link>
         </div>
         <div className="block">
           <button

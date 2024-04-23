@@ -1,6 +1,6 @@
 import propTypes from "prop-types";
 import TimeAgo from "../TimeAgo.jsx";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 function ListVid({ data }) {
   return (
@@ -35,18 +35,23 @@ function ListVid({ data }) {
               <TimeAgo createdAt={data.createdAt} />
             </p>
             <div className="flex items-center gap-x-4">
-              <div className="mt-2 hidden h-10 w-10 shrink-0 md:block">
+              <Link
+                to={`/channel/video/${data.owner._id}`}
+                className="mt-2 hidden h-10 w-10 shrink-0 md:block"
+              >
                 <img
                   src={data.owner.avatar}
                   alt="expresslearner"
                   className="h-full w-full rounded-full"
                 />
-              </div>
+              </Link>
               <p className="text-sm text-gray-200">{data.owner.fullName}</p>
             </div>
-            <p className="mt-2 hidden text-sm md:block">
-              {`${data.description?.substring(100)}...`}
-            </p>
+            <Link to={`/channel/video/${data.owner._id}`} className="w-full">
+              <p className="mt-2 hidden text-sm md:block">
+                {`${data.description?.substring(100)}...`}
+              </p>
+            </Link>
           </div>
         </div>
       </div>
