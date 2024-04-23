@@ -30,7 +30,7 @@ function Login() {
 			if (resJson.success) {
 				// document.cookie = `accessToken=${resJson.data.accessToken}`;
 				// document.cookie = `refreshToken=${resJson.data.refreshToken}`;
-				navigate('/')
+				navigate('/home')
             }
         } catch (error) {
             console.log(error);
