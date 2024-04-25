@@ -12,16 +12,13 @@ function VideoPlay() {
   const [recomVideos, setRecomVideos] = useState([])
 
   useEffect(() => {
-    console.log(videoId);
+    setVideo({}); // so that when new video is added at firsft older one should be clear. otherwise some times it shown the older video when you go to new video in the ui. data stored and data stream from one component to another component properly but does not shown in the ui. eg. - when video clicked from video player video recommendation video 
+    setRecomVideos([]);
     fetchVideo();
     // addView();
     fetchRecommendationVideo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoId]);
-
-  useEffect(() => {
-    console.log(video);
-  },[video])
 
   // fetch recommendation video 
   const fetchRecommendationVideo = async () => {
@@ -35,7 +32,6 @@ function VideoPlay() {
 
   // get video
   const fetchVideo = async () => {
-    console.log("fetching video...");
     try {
       const res = await apiRequest(`/videos/${videoId}`);
       setVideo(res.data);

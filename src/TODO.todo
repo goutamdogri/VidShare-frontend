@@ -1,5 +1,4 @@
-1. channel subscribed -> subscribe when refresh
+1. implement "Intersection Observer" in usePagination instead of height stuff.
 2. some video does not play. some avatar error is coming
 3. removeEventlistener does not work sometimes because it gets null
-4. video does not load from video recommendation link
-5. if user authentication does not match then i need to take user to login page from any url that user searching.
+4. if user authentication does not match then i need to take user to login page from any url that user searching.

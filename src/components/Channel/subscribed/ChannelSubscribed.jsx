@@ -1,6 +1,12 @@
 import SingleChannelSubscribed from "./SingleChannelSubscribed";
+import usePagination from '../../../hooks/usePagination.js'
+import { useParams } from "react-router-dom";
+
 
 function ChannelSubscribed() {
+  const { channelId } = useParams();
+  const {data} = usePagination(`/subscriptions/c/${channelId}/?page=`, `&limit=20`)
+
   return (
     <div className="px-4 pb-4">
       <div className="flex flex-col gap-y-4 py-4">
@@ -28,7 +34,10 @@ function ChannelSubscribed() {
           />
         </div>
 
-        <SingleChannelSubscribed />
+        {data?.length > 0 &&
+          data.map((currVal, id) => (
+            <SingleChannelSubscribed key={id} data={currVal} />
+          ))}
       </div>
     </div>
   );

@@ -33,7 +33,6 @@ function PlaylistDetails() {
   const fetchPlaylistViews = async () => {
     try {
       const res = await apiRequest(`/playlist/details/${playlistId}`)
-      console.log(res);
       setPlaylistView(res.data[0].totalViews)
     } catch (error) {
       console.log(error);

@@ -1,25 +1,25 @@
-import propTypes from 'prop-types'
-import apiRequest from '../../../hooks/apiRequest';
-import { useEffect, useState } from 'react';
-import TimeAgo from '../../TimeAgo';
-import { Link } from 'react-router-dom';
+import propTypes from "prop-types";
+import apiRequest from "../../../hooks/apiRequest";
+import { useEffect, useState } from "react";
+import TimeAgo from "../../TimeAgo";
+import { Link } from "react-router-dom";
 
-function PlaylistVideo({videoId}) {
-  const [video, setVideo] = useState({})
+function PlaylistVideo({ videoId }) {
+  const [video, setVideo] = useState({});
 
   useEffect(() => {
-    fetchVideo()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [videoId])
+    fetchVideo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [videoId]);
 
   const fetchVideo = async () => {
     try {
-      const res = await apiRequest(`/videos/${videoId}`)
-      setVideo(res.data)
+      const res = await apiRequest(`/videos/${videoId}`);
+      setVideo(res.data);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <Link to={`/video/${videoId}`} className="border">
@@ -34,34 +34,46 @@ function PlaylistVideo({videoId}) {
               />
             </div>
             <span className="absolute bottom-1 right-1 inline-block rounded bg-black px-1.5 text-sm">
-            {Math.floor(video.duration)}
+              {Math.floor(video.duration)}
             </span>
           </div>
         </div>
         <div className="flex gap-x-2 px-2 sm:w-7/12 sm:px-0">
-          <div className="h-10 w-10 shrink-0 sm:hidden">
+          <Link
+            to={`/channel/video/${video?.owner?._id}`}
+            className="h-10 w-10 shrink-0 sm:hidden"
+          >
             <img
               src={video?.owner?.avatar}
               className="h-full w-full rounded-full"
             />
-          </div>
+          </Link>
           <div className="w-full">
-            <h6 className="mb-1 font-semibold sm:max-w-[75%]">
-              {video.title}
-            </h6>
+            <h6 className="mb-1 font-semibold sm:max-w-[75%]">{video.title}</h6>
             <p className="flex text-sm text-gray-200 sm:mt-3">
-            {`${video.views} Views · `}
-            <TimeAgo createdAt={video?.createdAt} />
+              {`${video.views} Views · `}
+              <TimeAgo createdAt={video?.createdAt} />
             </p>
-            <div className="flex items-center gap-x-4">
-              <div className="mt-2 hidden h-10 w-10 shrink-0 sm:block">
+            <div
+              to={`/channel/video/${video?.owner?._id}`}
+              className="flex items-center gap-x-4"
+            >
+              <Link
+                to={`/channel/video/${video?.owner?._id}`}
+                className="mt-2 hidden h-10 w-10 shrink-0 sm:block"
+              >
                 <img
                   src={video?.owner?.avatar}
                   alt="codemaster"
                   className="h-full w-full rounded-full"
                 />
-              </div>
-              <p className="text-sm text-gray-200">{video?.owner?.fullName}</p>
+              </Link>
+              <Link
+                to={`/channel/video/${video?.owner?._id}`}
+                className="text-sm text-gray-200"
+              >
+                {video?.owner?.fullName}
+              </Link>
             </div>
           </div>
         </div>

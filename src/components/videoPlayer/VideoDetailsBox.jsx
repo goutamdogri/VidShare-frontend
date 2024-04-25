@@ -27,7 +27,6 @@ function VideoDetailsBox({ video }) {
 
   // getting Subscriber Count
   async function getSubscriberCount() {
-    
     try {
       const subsRes = await apiRequest(`/subscriptions/subscribersCount/${video.owner._id}`);
       setSubsCount(subsRes.data.subscribersCount);

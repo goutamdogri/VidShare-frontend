@@ -1,29 +1,126 @@
-function SingleCommunityPost() {
+import propTypes from "prop-types";
+import TimeAgo from "../../TimeAgo.jsx";
+import { useEffect, useState } from "react";
+import apiRequest from "../../../hooks/apiRequest.js";
+
+function SingleCommunityPost({ communityPost }) {
+  const [postLikesCount, setPostLikesCount] = useState(0);
+  const [likeStatus, setLikeStatus] = useState(false);
+  const [dislikeStatus, setDislikeStatus] = useState(false);
+
+  useEffect(() => {
+    getPostLikesCount();
+    getPostLikeStatus();
+    getPostDislikeStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // getting Post Likes Count
+  async function getPostLikesCount() {
+    try {
+      const postLikesRes = await apiRequest(
+        `/likes/communityPost/${communityPost._id}`
+      );
+      setPostLikesCount(postLikesRes.data.communityPostLikesCount);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // getting Post like status
+  async function getPostLikeStatus() {
+    try {
+      const likeStatusRes = await apiRequest(
+        `/likes/check/toggle/post/${communityPost._id}?need=check`,
+        "POST"
+      );
+      setLikeStatus(likeStatusRes.data.checkUserCommunityPostLike);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // getting Post dislike status
+  async function getPostDislikeStatus() {
+    try {
+      const dislikeStatusRes = await apiRequest(
+        `/dislikes/check/toggle/Post/${communityPost._id}?need=check`,
+        "POST"
+      );
+      console.log(dislikeStatusRes.data.checkUserCommunityPostDislike);
+      setDislikeStatus(dislikeStatusRes.data.checkUserCommunityPostDislike);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // toggle Post like
+  // TODO: like count update takes too much time
+  async function togglePostLike() {
+    try {
+      const togglePostLikeRes = await apiRequest(
+        `/likes/check/toggle/Post/${communityPost._id}?need=toggle`,
+        "POST"
+      );
+      // console.log(togglePostLikeRes);
+      setLikeStatus(togglePostLikeRes.data.currLikeStatus);
+      getPostLikesCount();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // toggle Post dislike
+  async function togglePostDislike() {
+    try {
+      const togglePostDislikeRes = await apiRequest(
+        `/dislikes/check/toggle/Post/${communityPost._id}?need=toggle`,
+        "POST"
+      );
+      setDislikeStatus(togglePostDislikeRes.data.currDislikeStatus);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (dislikeStatus && likeStatus) {
+      setDislikeStatus(false);
+      togglePostDislike();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [likeStatus]);
+
+  useEffect(() => {
+    if (likeStatus && dislikeStatus) {
+      setLikeStatus(false);
+      togglePostLike();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dislikeStatus]);
+
   return (
     <div className="flex gap-3 border-b border-gray-700 py-4 last:border-b-transparent">
       <div className="h-14 w-14 shrink-0">
         <img
-          src="https://images.pexels.com/photos/1115816/pexels-photo-1115816.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src={communityPost.owner?.avatar}
           alt="React Patterns"
           className="h-full w-full rounded-full"
         />
       </div>
       <div className="w-full">
         <h4 className="mb-1 flex items-center gap-x-2">
-          <span className="font-semibold">React Patterns</span>
+          <span className="font-semibold">{communityPost.owner?.fullName}</span>
           <span className="inline-block text-sm text-gray-400">
-            5 hours ago
+            <TimeAgo createdAt={communityPost.createdAt} />
           </span>
         </h4>
-        <p className="mb-2">
-          Exploring the latest features in JavaScript ES11! The language keeps
-          evolving. 💡 #JavaScript #ES11
-        </p>
+        <p className="mb-2">{communityPost.content}</p>
         <div className="flex gap-4">
           <button
-            className="group inline-flex items-center gap-x-1 outline-none after:content-[attr(data-like-count)] focus:after:content-[attr(data-like-count-alt)]"
-            data-like-count="425"
-            data-like-count-alt="424"
+            onClick={togglePostLike}
+            className="group inline-flex items-center gap-x-1 outline-none after:content-[attr(data-like-count)]"
+            data-like-count={postLikesCount}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +129,7 @@ function SingleCommunityPost() {
               strokeWidth="1.5"
               stroke="currentColor"
               aria-hidden="true"
-              className="h-5 w-5 text-[#ae7aff] group-focus:text-inherit"
+              className={`h-5 w-5 ${likeStatus ? "text-[#ae7aff]" : ""} `}
             >
               <path
                 strokeLinecap="round"
@@ -42,9 +139,8 @@ function SingleCommunityPost() {
             </svg>
           </button>
           <button
-            className="group inline-flex items-center gap-x-1 outline-none after:content-[attr(data-dislike-count)] focus:after:content-[attr(data-dislike-count-alt)]"
-            data-dislike-count="87"
-            data-dislike-count-alt="88"
+            onClick={togglePostDislike}
+            className="group inline-flex items-center gap-x-1 outline-none"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +149,9 @@ function SingleCommunityPost() {
               strokeWidth="1.5"
               stroke="currentColor"
               aria-hidden="true"
-              className="h-5 w-5 text-inherit group-focus:text-[#ae7aff]"
+              className={`h-5 w-5  ${
+                dislikeStatus ? "text-[#ae7aff]" : ""
+              } `}
             >
               <path
                 strokeLinecap="round"
@@ -67,5 +165,9 @@ function SingleCommunityPost() {
     </div>
   );
 }
+
+SingleCommunityPost.propTypes = {
+  communityPost: propTypes.object,
+};
 
 export default SingleCommunityPost;

@@ -6,16 +6,18 @@ import { useEffect, useState } from "react";
 function ChannelHeader() {
   const { channelId } = useParams();
   const [channel, setChannel] = useState();
-  const [subscriptionStatus, setSubscriptionStatus] = useState();
+  const [subscriptionStatus, setSubscriptionStatus] = useState(false);
 
   useEffect(() => {
     fetchChannel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [channelId]);
+
   const fetchChannel = async () => {
     try {
       const res = await apiRequest(`/users/c/${channelId}`);
       setChannel(res.data);
+      setSubscriptionStatus(res.data.isSubscribed.if);
     } catch (error) {
       console.log(error);
     }

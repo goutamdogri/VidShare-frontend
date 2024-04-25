@@ -35,7 +35,7 @@ function Register() {
 			if (resJson.success) {
 			// 	document.cookie = `accessToken=${resJson.data.accessToken}`;
 			// 	document.cookie = `refreshToken=${resJson.data.refreshToken}`;
-				navigate('/home')
+				navigate('/')
 			} else {
 				// Registration failed, handle the error
 				console.error('Registration failed:', response.statusText);
