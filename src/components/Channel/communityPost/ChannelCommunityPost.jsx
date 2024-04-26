@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import usePagination from "../../../hooks/usePagination";
 import SingleChannelCommunityPost from "./SingleChannelCommunityPost";
+import EmptyCommunityPost from "./EmptyCommunityPost";
 
 function ChannelCommunityPost() {
   const { channelId } = useParams();
@@ -12,12 +13,14 @@ function ChannelCommunityPost() {
 
   return (
     <div className="px-4 pb-4">
-      <div className="py-4">
-        {communityPost?.length > 0 &&
-          communityPost.map((currVal, id) => (
+      {communityPost?.length > 0 && (
+        <div className="py-4">
+          {communityPost.map((currVal, id) => (
             <SingleChannelCommunityPost key={id} communityPost={currVal} />
           ))}
-      </div>
+        </div>
+      )}
+      {communityPost?.length == 0 && <EmptyCommunityPost />}
     </div>
   );
 }
