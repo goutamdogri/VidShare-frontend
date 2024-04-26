@@ -42,7 +42,7 @@ function ChannelSubscribed() {
           ))}
         </div>
       )}
-      {data?.length > 0 && <EmptySubscribed />}
+      {data?.length == 0 && <EmptySubscribed />}
     </div>
   );
 }
