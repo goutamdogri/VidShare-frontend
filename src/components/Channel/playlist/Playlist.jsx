@@ -10,8 +10,10 @@ function Playlist({playlist}) {
   const [playlistView, setPlaylistView] = useState(0)
 
   useEffect(() => {
-    fetchVideo()
-    fetchPlaylistViews()
+    if (playlist.videos.length > 0) {
+      fetchVideo()
+      fetchPlaylistViews()
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlist])
 
@@ -27,7 +29,6 @@ function Playlist({playlist}) {
   const fetchPlaylistViews = async () => {
     try {
       const res = await apiRequest(`/playlist/details/${playlist._id}`)
-      console.log(res);
       setPlaylistView(res.data[0].totalViews)
     } catch (error) {
       console.log(error);
@@ -40,7 +41,7 @@ function Playlist({playlist}) {
         <div className="absolute inset-0">
           <img
             src={video?.thumbnail}
-            alt="React Mastery"
+            alt=""
             className="h-full w-full"
           />
           <div className="w-full absolute ins

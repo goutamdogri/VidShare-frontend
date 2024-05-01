@@ -49,7 +49,7 @@ function ListVid({ data }) {
             </div>
             <Link to={`/channel/video/${data.owner._id}`} className="w-full">
               <p className="mt-2 hidden text-sm md:block">
-                {`${data.description?.substring(100)}...`}
+                {`${data.description?.substring(0, 100)}...`}
               </p>
             </Link>
           </div>

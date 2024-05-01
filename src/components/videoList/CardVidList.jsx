@@ -5,23 +5,28 @@ import usePagination from "../../hooks/usePagination.js";
 
 function CardVidList({ endPoint = "" }) {
 
-  const {data: videos, addInfo, loading} = usePagination(`/videos/?page=`, `&limit=9&sortBy=title&sortType=1&isPublished=all`) //💯if the hook function is async then it return promise.
+  const {
+    data: videos,
+    addInfo,
+    loading,
+  } = usePagination(
+    `/videos/?page=`,
+    `&limit=9&sortBy=title&sortType=1&isPublished=true`
+  ); //💯if the hook function is async then it return promise.
 
   return (
     <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
       {endPoint === "home" && (
         <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-4 p-4">
-          {videos?.length > 0 && videos.map((currVal, id) => (
-            <CardVid key={id} data={currVal} />
-          ))}
+          {videos?.length > 0 &&
+            videos.map((currVal, id) => <CardVid key={id} data={currVal} />)}
         </div>
       )}
 
       {endPoint === "search" && (
         <div className="flex flex-col gap-4 p-4">
-          {videos?.length > 0 && videos.map((currVal, id) => (
-            <ListVid key={id} data={currVal} />
-          ))}
+          {videos?.length > 0 &&
+            videos.map((currVal, id) => <ListVid key={id} data={currVal} />)}
         </div>
       )}
 
@@ -30,7 +35,7 @@ function CardVidList({ endPoint = "" }) {
           <p className="text-white text-lg font pb-4">Loading...</p>
         </div>
       )}
-      
+
       {!addInfo.hasNextPage && (
         <div className="text-center">
           <p className="text-white text-lg font pb-4">No more videos</p>

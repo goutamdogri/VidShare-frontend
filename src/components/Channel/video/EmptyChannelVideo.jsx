@@ -1,4 +1,7 @@
-function EmptyChannelVideo() {
+import propTypes from "prop-types";
+import { Link } from "react-router-dom";
+
+function EmptyChannelVideo({ ifNewVid, channelId }) {
   return (
     <div className="flex justify-center p-4">
       <div className="w-full max-w-sm text-center">
@@ -26,9 +29,36 @@ function EmptyChannelVideo() {
           This page has yet to upload a video. Search another page in order to
           find more videos.
         </p>
+        {ifNewVid && (
+          <Link to={`/myChannel/upload/video/${channelId}`}>
+            <button className="mt-4 inline-flex items-center gap-x-2 bg-[#ae7aff] px-3 py-2 font-semibold text-black">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                aria-hidden="true"
+                className="h-5 w-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                ></path>
+              </svg>{" "}
+              New video
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
 }
+
+EmptyChannelVideo.propTypes = {
+  ifNewVid: propTypes.bool,
+  channelId: propTypes.string,
+};
 
 export default EmptyChannelVideo;

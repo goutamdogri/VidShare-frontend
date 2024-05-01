@@ -47,7 +47,6 @@ function SingleCommunityPost({ communityPost }) {
         `/dislikes/check/toggle/Post/${communityPost._id}?need=check`,
         "POST"
       );
-      console.log(dislikeStatusRes.data.checkUserCommunityPostDislike);
       setDislikeStatus(dislikeStatusRes.data.checkUserCommunityPostDislike);
     } catch (error) {
       console.log(error);

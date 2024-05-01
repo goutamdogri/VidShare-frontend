@@ -6,9 +6,9 @@ function PlaylistName({ playlist, vidId }) {
 
 	async function addOrRemoveVideoFromPlaylist(checkedStatus) {
 		if(checkedStatus) {
-				await apiRequest(`http://localhost:8000/api/v1/playlist/add/${vidId}/${playlist._id}`, "PATCH")
+				await apiRequest(`/playlist/add/${vidId}/${playlist._id}`, "PATCH")
 		} else {
-				await apiRequest(`http://localhost:8000/api/v1/playlist/remove/${vidId}/${playlist._id}`, 'PATCH')
+				await apiRequest(`/playlist/remove/${vidId}/${playlist._id}`, 'PATCH')
 		}
 	}
 

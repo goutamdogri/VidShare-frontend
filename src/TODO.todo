@@ -2,3 +2,8 @@
 2. some video does not play. some avatar error is coming
 3. removeEventlistener does not work sometimes because it gets null
 4. if user authentication does not match then i need to take user to login page from any url that user searching.
+5. avatar and cover image update takes time i should add loader at that time and while upload is complete i should render it immediately.
+6. server error handle and show relevent user understandable ui.
+7. after upload is complete video do not show till reload
+8. i use window.location.reload(); to reload communityPost after upload is complete. change it because it is not good practice.
+9. add loader whereever required.

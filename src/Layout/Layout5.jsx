@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
-import Header from "../components/header/Header";
-import Menubar from "../components/menu/Menubar";
-import ChannelHeader from "../components/Channel/ChannelHeader.jsx";
+import Header from "../components/header/Header.jsx";
+import Menubar from "../components/menu/Menubar.jsx";
+import EditHeader from "../components/edit/EditHeader.jsx";
+import EditImageContextProvider from "../contexts/EditImageContextProvider.jsx";
 
-function Layout3() {
+function Layout5() {
   return (
     <div
       id="scrollingDiv"
@@ -18,13 +19,15 @@ function Layout3() {
         />
 
         <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">
-					<ChannelHeader />
+          <EditImageContextProvider>
+            <EditHeader />
 
-					<Outlet />
-				</section>
+            <Outlet />
+          </EditImageContextProvider>
+        </section>
       </div>
     </div>
   );
 }
 
-export default Layout3;
+export default Layout5;

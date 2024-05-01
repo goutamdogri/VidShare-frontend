@@ -14,7 +14,7 @@ function VideoDetailsBox({ video }) {
   const [videoLikesCount, setVideoLikesCount] = useState(0);
   const [likeStatus, setLikeStatus] = useState(false);
   const [dislikeStatus, setDislikeStatus] = useState(false);
-  const { setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     getSubscriberCount();
@@ -129,19 +129,19 @@ function VideoDetailsBox({ video }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function getCurrentUser() {
-    try {
-      const response = await apiRequest("/users/current-user");
-      setUser(response.data);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function getCurrentUser() {
+  //   try {
+  //     const response = await apiRequest("/users/current-user");
+  //     setUser(response.data);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   async function fetchPlaylist() {
     try {
-      const user = await getCurrentUser();
+      // const user = await getCurrentUser();
       const res = await apiRequest(`/playlist/user/${user._id}`);
       setPlaylists(res.data);
     } catch (error) {
