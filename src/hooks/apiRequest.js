@@ -20,7 +20,7 @@ async function apiRequest(url, method, header, body) {
 
   let data;
   try {
-    const res = await fetch(`http://localhost:8000/api/v1${url}`, aditionalInfo);
+    const res = await fetch(`/api/v1${url}`, aditionalInfo);
     data = await res.json();
   } catch (error) {
     console.log(error);
