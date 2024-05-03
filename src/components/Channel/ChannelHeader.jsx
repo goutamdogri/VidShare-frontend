@@ -134,7 +134,7 @@ function ChannelHeader() {
               }
             >
               <button className="w-full border-b-2 py-1.5">
-                Community Post
+                Post
               </button>
             </NavLink>
           </li>

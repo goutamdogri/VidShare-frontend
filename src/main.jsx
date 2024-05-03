@@ -35,6 +35,7 @@ import Collections from "./components/collections/Collections.jsx";
 import AuthCheck from "./components/utils/AuthCheck.jsx";
 import MyChannelPlaylist from "./components/myChannel/myPlaylist/MyChannelPlaylist.jsx";
 import MyChannelSubscriber from "./components/myChannel/mySubscribed/MyChannelSubscriber.jsx";
+import Feedback from "./components/feedback/Feedback.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,6 +62,7 @@ const router = createBrowserRouter(
           <Route path="likes/videos" element={<LikedVideos />} />
           <Route path="watchHistory" element={<WatchHistory />} />
           <Route path="collections/:channelId" element={<Collections />} />
+          <Route path="feedback" element={<Feedback />} />
         </Route>
 
         <Route path="channel/" element={<Layout3 />}>
@@ -82,7 +84,10 @@ const router = createBrowserRouter(
             path="communityPost/:channelId"
             element={<MyChannelCommunityPost />}
           />
-          <Route path="subscribed/:channelId" element={<MyChannelSubscriber />} />
+          <Route
+            path="subscribed/:channelId"
+            element={<MyChannelSubscriber />}
+          />
           <Route path="upload/video/:channelId" element={<MyChannelVideo />} />
         </Route>
 
