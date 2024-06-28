@@ -5,22 +5,22 @@ import Logo from "../components/utils/Logo.jsx";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
-  // const refreshToken = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       "http://localhost:8000/api/v1/users/refresh-route",
-  //       { method: "POST", credentials: "include" }
-  //     );
-  //     res.ok ? navigate("/home") : "";
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const refreshToken = async () => {
+    try {
+      const res = await fetch(
+        "http://localhost:8000/api/v1/users/refresh-route",
+        { method: "POST", credentials: "include" }
+      );
+      res.ok ? navigate("/home") : "";
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // useEffect(() => {
-  //   refreshToken();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    refreshToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
