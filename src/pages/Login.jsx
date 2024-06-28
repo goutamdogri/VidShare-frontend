@@ -11,8 +11,7 @@ function Login() {
         "http://localhost:8000/api/v1/users/refresh-route",
         { method: "POST", credentials: "include" }
       );
-      const data = await res.json();
-      data?.success ? navigate("/") : "";
+      res.ok ? navigate("/") : "";
     } catch (error) {
       console.log(error);
     }
