@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import useAuthCheck from "../hooks/useAuthCheck.js";
 
 function Layout1() {
-  useAuthCheck();
+  // useAuthCheck();
   return (
     <>
       <div
