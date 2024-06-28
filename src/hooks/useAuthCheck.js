@@ -12,7 +12,7 @@ async function useAuthCheck() {
 			navigate("/", { replace: true });
 		}
 	} catch (error) {
-		navigate("/", { replace: true });
+		// navigate("/", { replace: true });
       console.log(error);
 	}
 }
