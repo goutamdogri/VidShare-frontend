@@ -48,8 +48,8 @@ const router = createBrowserRouter(
         <Route path=":videoId" element={<VideoPlay />} />
       </Route>
 
-      <Route path="home" element={<Layout2 />}>
-        <Route path="" element={<CardVidList endPoint="home" />} />
+      <Route path="" element={<Layout2 />}>
+        <Route path="home" element={<CardVidList endPoint="home" />} />
         <Route path="search" element={<CardVidList endPoint="search" />} />
         <Route
           path="channel/playlist/details/:playlistId"

@@ -3,12 +3,14 @@ import { NavLink, useLocation, useParams } from "react-router-dom";
 import apiRequest from "../../hooks/apiRequest";
 import { useContext, useEffect, useState } from "react";
 import EditImageContext from "../../contexts/EditImageContext";
+import UserContext from "../../contexts/UserContext";
 
 function EditHeader() {
   const { channelId } = useParams();
   const [channel, setChannel] = useState();
   const { setAvatar, setCoverImage } = useContext(EditImageContext);
   const location = useLocation();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     fetchChannel();
@@ -104,11 +106,11 @@ function EditHeader() {
               {`${channel?.subscribersCount} Subscribers · ${channel?.channelSubscribedToCount} Subscribed`}
             </p>
           </div>
-          <div className="inline-block">
+          <NavLink to={`/myChannel/video/${user?._id}`} className="inline-block">
             <button className="group/btn mr-1 flex w-full items-center gap-x-2 bg-[#ae7aff] px-3 py-2 text-center font-bold text-black shadow-[5px_5px_0px_0px_#4f4e4e] transition-all duration-150 ease-in-out active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0px_0px_#4f4e4e] sm:w-auto">
               View channel
             </button>
-          </div>
+          </NavLink>
         </div>
         <ul className="no-scrollbar sticky top-[66px] z-[2] flex flex-row gap-x-2 overflow-auto border-b-2 border-gray-400 bg-[#121212] py-2 sm:top-[82px]">
           <li className="w-full">

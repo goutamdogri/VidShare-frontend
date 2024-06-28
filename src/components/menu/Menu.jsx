@@ -1,7 +1,7 @@
 import propTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
-function Menu({ children, menuTitle, className = "", menuSpanClass = "", link }) {
+function Menu({ children, menuTitle, className = "", menuSpanClass = "", link = "#" }) {
   
   return (
     <li className={className}>

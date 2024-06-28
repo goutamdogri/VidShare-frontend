@@ -26,12 +26,12 @@ function Menubar({ className = "", menuSpanClass = "" }) {
         <Menu
           menuTitle="Home"
           className={`${
-            location.pathname == "/"
+            location.pathname == "/home"
               ? "text-[#ae7aff] sm:border-[#ae7aff] sm:bg-[#ae7aff] sm:text-black"
               : ""
           }`}
           menuSpanClass={menuSpanClass}
-          link={`/`}
+          link={`/home`}
         >
           <HomeSVG />
         </Menu>
