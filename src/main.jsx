@@ -40,15 +40,15 @@ import Feedback from "./components/feedback/Feedback.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="">
+      <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
 
       <Route path="/" element={<AuthCheck />}>
         <Route path="video/" element={<Layout1 />}>
           <Route path=":videoId" element={<VideoPlay />} />
         </Route>
 
-        <Route path="" element={<Layout2 />}>
+        <Route path="home" element={<Layout2 />}>
           <Route path="" element={<CardVidList endPoint="home" />} />
           <Route path="search" element={<CardVidList endPoint="search" />} />
           <Route

@@ -11,7 +11,7 @@ function Login() {
         "http://localhost:8000/api/v1/users/refresh-route",
         { method: "POST", credentials: "include" }
       );
-      res.ok ? navigate("/") : "";
+      res.ok ? navigate("/home") : "";
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +47,7 @@ function Login() {
       if (resJson.success) {
         // document.cookie = `accessToken=${resJson.data.accessToken}`;
         // document.cookie = `refreshToken=${resJson.data.refreshToken}`;
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       console.log(error);

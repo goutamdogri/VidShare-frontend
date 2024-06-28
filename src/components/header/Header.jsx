@@ -22,7 +22,7 @@ function Header() {
     e.preventDefault();
     try {
       await apiRequest("/users/logout", "POST");
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
