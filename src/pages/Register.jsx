@@ -119,7 +119,7 @@ function Register() {
           </Button>
         </form>
 
-        <Link to="/login" className="px-4">
+        <Link to="/" className="px-4">
           Login
         </Link>
       </div>

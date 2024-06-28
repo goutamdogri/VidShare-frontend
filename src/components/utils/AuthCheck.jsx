@@ -21,11 +21,11 @@ function AuthCheck() {
       return data?.success ? (
         <Outlet />
       ) : (
-        navigate("/login", { replace: true })
+        navigate("/", { replace: true })
       );
     } catch (error) {
       console.log(error);
-      navigate("/login", { replace: true });
+      navigate("/", { replace: true });
     }
   };
 
