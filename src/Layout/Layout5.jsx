@@ -3,8 +3,10 @@ import Header from "../components/header/Header.jsx";
 import Menubar from "../components/menu/Menubar.jsx";
 import EditHeader from "../components/edit/EditHeader.jsx";
 import EditImageContextProvider from "../contexts/EditImageContextProvider.jsx";
+import useAuthCheck from "../hooks/useAuthCheck.js";
 
 function Layout5() {
+  useAuthCheck();
   return (
     <div
       id="scrollingDiv"

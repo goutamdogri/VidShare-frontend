@@ -32,89 +32,80 @@ import AdminDashboard from "./components/dashboard/AdminDashboard.jsx";
 import LikedVideos from "./components/likedVideos/LikedVideos.jsx";
 import WatchHistory from "./components/watchHistory/WatchHistory.jsx";
 import Collections from "./components/collections/Collections.jsx";
-import AuthCheck from "./components/utils/AuthCheck.jsx";
+// import AuthCheck from "./components/utils/AuthCheck.jsx";
 import MyChannelPlaylist from "./components/myChannel/myPlaylist/MyChannelPlaylist.jsx";
 import MyChannelSubscriber from "./components/myChannel/mySubscribed/MyChannelSubscriber.jsx";
 import Feedback from "./components/feedback/Feedback.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="">
-      <Route path="/" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+    <Route path="/">
+      <Route path="" element={<Login />} />
+      <Route path="register" element={<Register />} />
 
-      <Route path="/" element={<AuthCheck />}>
-        <Route path="video/" element={<Layout1 />}>
-          <Route path=":videoId" element={<VideoPlay />} />
-        </Route>
-
-        <Route path="home" element={<Layout2 />}>
-          <Route path="" element={<CardVidList endPoint="home" />} />
-          <Route path="search" element={<CardVidList endPoint="search" />} />
-          <Route
-            path="channel/playlist/details/:playlistId"
-            element={<PlaylistDetails />}
-          />
-          <Route
-            path="myChannel/playlist/details/:playlistId"
-            element={<PlaylistDetails />}
-          />
-          <Route path="likes/videos" element={<LikedVideos />} />
-          <Route path="watchHistory" element={<WatchHistory />} />
-          <Route path="collections/:channelId" element={<Collections />} />
-          <Route path="feedback" element={<Feedback />} />
-        </Route>
-
-        <Route path="channel/" element={<Layout3 />}>
-          <Route index element={<Redirect />} />
-          <Route path="video/:channelId" element={<ChannelVideoList />} />
-          <Route path="playlist/:channelId" element={<ChannelPlaylist />} />
-          <Route
-            path="communityPost/:channelId"
-            element={<ChannelCommunityPost />}
-          />
-          <Route path="subscribed/:channelId" element={<ChannelSubscribed />} />
-        </Route>
-
-        <Route path="myChannel/" element={<Layout4 />}>
-          <Route index element={<Redirect />} />
-          <Route path="video/:channelId" element={<MyChannelVideo />} />
-          <Route path="playlist/:channelId" element={<MyChannelPlaylist />} />
-          <Route
-            path="communityPost/:channelId"
-            element={<MyChannelCommunityPost />}
-          />
-          <Route
-            path="subscribed/:channelId"
-            element={<MyChannelSubscriber />}
-          />
-          <Route path="upload/video/:channelId" element={<MyChannelVideo />} />
-        </Route>
-
-        <Route path="edit/" element={<Layout5 />}>
-          <Route
-            path="personalInfo/:channelId"
-            element={<EditPersonalInfo />}
-          />
-          <Route path="channelInfo/:channelId" element={<EditChannelInfo />} />
-          <Route
-            path="changepassword/:channelId"
-            element={<ChangePassword />}
-          />
-        </Route>
-
-        <Route path="dashboard/" element={<Layout6 />}>
-          <Route path="admin/:channelId" element={<AdminDashboard />} />
-          <Route
-            path="editVideo/:channelId/:videoId"
-            element={<AdminDashboard />}
-          />
-          <Route
-            path="deleteVideo/:channelId/:videoId"
-            element={<AdminDashboard />}
-          />
-        </Route>
+      {/* <Route path="/" element={<AuthCheck />}> */}
+      <Route path="video/" element={<Layout1 />}>
+        <Route path=":videoId" element={<VideoPlay />} />
       </Route>
+
+      <Route path="home" element={<Layout2 />}>
+        <Route path="" element={<CardVidList endPoint="home" />} />
+        <Route path="search" element={<CardVidList endPoint="search" />} />
+        <Route
+          path="channel/playlist/details/:playlistId"
+          element={<PlaylistDetails />}
+        />
+        <Route
+          path="myChannel/playlist/details/:playlistId"
+          element={<PlaylistDetails />}
+        />
+        <Route path="likes/videos" element={<LikedVideos />} />
+        <Route path="watchHistory" element={<WatchHistory />} />
+        <Route path="collections/:channelId" element={<Collections />} />
+        <Route path="feedback" element={<Feedback />} />
+      </Route>
+
+      <Route path="channel/" element={<Layout3 />}>
+        <Route index element={<Redirect />} />
+        <Route path="video/:channelId" element={<ChannelVideoList />} />
+        <Route path="playlist/:channelId" element={<ChannelPlaylist />} />
+        <Route
+          path="communityPost/:channelId"
+          element={<ChannelCommunityPost />}
+        />
+        <Route path="subscribed/:channelId" element={<ChannelSubscribed />} />
+      </Route>
+
+      <Route path="myChannel/" element={<Layout4 />}>
+        <Route index element={<Redirect />} />
+        <Route path="video/:channelId" element={<MyChannelVideo />} />
+        <Route path="playlist/:channelId" element={<MyChannelPlaylist />} />
+        <Route
+          path="communityPost/:channelId"
+          element={<MyChannelCommunityPost />}
+        />
+        <Route path="subscribed/:channelId" element={<MyChannelSubscriber />} />
+        <Route path="upload/video/:channelId" element={<MyChannelVideo />} />
+      </Route>
+
+      <Route path="edit/" element={<Layout5 />}>
+        <Route path="personalInfo/:channelId" element={<EditPersonalInfo />} />
+        <Route path="channelInfo/:channelId" element={<EditChannelInfo />} />
+        <Route path="changepassword/:channelId" element={<ChangePassword />} />
+      </Route>
+
+      <Route path="dashboard/" element={<Layout6 />}>
+        <Route path="admin/:channelId" element={<AdminDashboard />} />
+        <Route
+          path="editVideo/:channelId/:videoId"
+          element={<AdminDashboard />}
+        />
+        <Route
+          path="deleteVideo/:channelId/:videoId"
+          element={<AdminDashboard />}
+        />
+      </Route>
+      {/* </Route> */}
     </Route>
   )
 );

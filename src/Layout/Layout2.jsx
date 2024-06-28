@@ -3,8 +3,10 @@ import Header from "../components/header/Header.jsx";
 import Menubar from "../components/menu/Menubar.jsx";
 // import propTypes from "prop-types";
 import { Outlet } from "react-router-dom";
+import useAuthCheck from "../hooks/useAuthCheck.js";
 
 function Layout2() {
+  useAuthCheck();
   return (
     <>
       <div
@@ -20,7 +22,7 @@ function Layout2() {
           />
 
           {/* <CardVidList endPoint={endPoint} /> */}
-					<Outlet />
+          <Outlet />
         </div>
       </div>
     </>
