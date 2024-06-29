@@ -20,7 +20,7 @@ function CommentBox({ videoId }) {
     };
     try {
       const res = await fetch(
-        `http://localhost:8000/api/v1/comments/v/video/${videoId}`,
+        `https://vidshareforbackend.goutamdogri.com/api/v1/comments/v/video/${videoId}`,
         {
           method: "POST",
           headers: {

@@ -26,7 +26,7 @@ function Register() {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/api/v1/users/register",
+        "https://vidshareforbackend.goutamdogri.com/api/v1/users/register",
         {
           method: "POST",
           body: formData,

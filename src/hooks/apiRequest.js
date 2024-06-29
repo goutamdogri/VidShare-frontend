@@ -20,7 +20,7 @@ async function apiRequest(url, method, header, body) {
 
   let data;
   try {
-    const res = await fetch(`http://3.6.124.173/api/v1${url}`, aditionalInfo);
+    const res = await fetch(`https://vidshareforbackend.goutamdogri.com/api/v1${url}`, aditionalInfo);
     data = await res.json();
   } catch (error) {
     console.log(error);

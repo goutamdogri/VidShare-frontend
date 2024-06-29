@@ -12,7 +12,7 @@ function AuthCheck() {
   const check = async () => {
     try {
       const res = await fetch(
-        "http://localhost:8000/api/v1/healthcheck/authCheck",
+        "https://vidshareforbackend.goutamdogri.com/api/v1/healthcheck/authCheck",
         { method: "GET", credentials: "include" }
       );
       if (res.ok) {
