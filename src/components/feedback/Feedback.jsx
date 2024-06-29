@@ -30,7 +30,7 @@ function Feedback() {
   return (
     <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0 p-6">
       <p>Feedback</p>
-      <p>Your feedback helps us to better the product, for you</p>
+      <p>Your feedback helps me to make the application better</p>
       {thanks && <p className="text-green-500">Thanks for your feedback!</p>}
       <div className="mt-2 border pb-2">
         <textarea
