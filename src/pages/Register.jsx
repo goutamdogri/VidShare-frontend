@@ -61,7 +61,7 @@ function Register() {
           className="mx-auto flex w-full max-w-sm flex-col px-4"
         >
           <Input
-            label="Full Name"
+            label="Full Name *"
             type="text"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
@@ -70,7 +70,7 @@ function Register() {
             calssForLabel="text-gray-300"
           />
           <Input
-            label="Email"
+            label="Email *"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -79,7 +79,7 @@ function Register() {
             calssForLabel="text-gray-300"
           />
           <Input
-            label="Username"
+            label="Username *"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -88,7 +88,7 @@ function Register() {
             calssForLabel="text-gray-300"
           />
           <Input
-            label="Password"
+            label="Password *"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -97,7 +97,7 @@ function Register() {
             calssForLabel="text-gray-300"
           />
           <Input
-            label="Avatar"
+            label="Avatar *"
             type="file"
             onChange={(e) => setAvatar(e.target.files[0])}
             placeholder="upload your avatar"
@@ -105,7 +105,7 @@ function Register() {
             calssForLabel="text-gray-300"
           />
           <Input
-            label="Cover Image"
+            label="Cover Image (not necessary)"
             type="file"
             onChange={(e) => setCoverImage(e.target.files[0])}
             placeholder="upload your Cover Image"
