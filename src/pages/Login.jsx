@@ -3,15 +3,19 @@ import Button from "../components/utils/Button.jsx";
 import Input from "../components/utils/Input.jsx";
 import Logo from "../components/utils/Logo.jsx";
 import { Link, useNavigate } from "react-router-dom";
+import apiRequest from "../hooks/apiRequest.js";
 
 function Login() {
   const refreshToken = async () => {
     try {
-      const res = await fetch(
-        "https://vidshareforbackend.goutamdogri.com/api/v1/users/refresh-route",
-        { method: "POST", credentials: "include" }
+      const response = await apiRequest(
+        "/users/refresh-route",
+        "POST"
       );
-      res.ok ? navigate("/home") : "";
+      // res.ok ? navigate("/home") : "";
+      if (response.success) {
+        navigate("/home");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -34,17 +38,15 @@ function Login() {
       password: password,
     };
     try {
-      const response = await fetch("https://vidshareforbackend.goutamdogri.com/api/v1/users/login", {
-        method: "POST",
-        headers: {
+      const response = await apiRequest("/users/login", 
+        "POST",
+        {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestData),
-        credentials: "include",
-      });
-      const resJson = await response.json();
+        JSON.stringify(requestData),
+      );
 
-      if (resJson.success) {
+      if (response.success) {
         // document.cookie = `accessToken=${resJson.data.accessToken}`;
         // document.cookie = `refreshToken=${resJson.data.refreshToken}`;
         navigate("/home");

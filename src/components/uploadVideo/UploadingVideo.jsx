@@ -49,8 +49,8 @@ function UploadingVideo() {
             </span>
           </div>
           <div className="flex flex-col">
-            <h6>Dashboard prototype recording.mp4</h6>
-            <p className="text-sm">16 MB</p>
+            <h6>Your video will upload in background, you can continue</h6>
+            {/* <p className="text-sm">16 MB</p> */}
             <div className="mt-2">
               <svg
                 aria-hidden="true"
@@ -73,12 +73,12 @@ function UploadingVideo() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <button className="border px-4 py-3">Cancel</button>
+        <div className="grid grid-cols-1">
+          {/* <button className="border px-4 py-3">Cancel</button> */}
           <Link to={`/myChannel/video/${channelId}`}
               className="bg-[#ae7aff] px-4 py-3 text-black disabled:bg-[#E4D3FF] text-center"
             >
-              Finish
+              Continue
           </Link>
         </div>
       </div>

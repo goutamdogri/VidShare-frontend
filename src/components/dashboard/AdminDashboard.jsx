@@ -53,12 +53,14 @@ function AdminDashboard() {
 
   if (isValid) {
     return (
-      <div className="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-y-6 px-4 py-8">
+      <>
+      {/* w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0 */}
+      {/* mx-auto flex w-full max-w-7xl flex-col gap-y-6 px-4 py-8 max-[1024px]:relative max-[1024px]:left-[62px] max-[640px]:left-0 max-[640px]:pb-20 */}
+        <div className="mx-auto flex w-full flex-col gap-y-6 px-4 py-8 max-[1024px]:relative max-[1024px]:pl-20 max-[640px]:pl-4 max-[640px]:pb-20" >
           <div className="flex flex-wrap justify-between gap-4">
             <div className="block">
               <h1 className="text-2xl font-bold">
-                Welcome Back, React Patterns
+                Admin Dashboard
               </h1>
               <p className="text-sm text-gray-300">
                 Seamless Video Management, Elevated Results.
@@ -199,7 +201,7 @@ function AdminDashboard() {
         {location.pathname.substring(11, 22) == "deleteVideo" && (
           <DeleteVideo video={video} />
         )}
-      </div>
+      </>
     );
   }
 }

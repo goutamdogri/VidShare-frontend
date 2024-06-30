@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import propTypes from "prop-types";
 import UserContext from "../../contexts/UserContext.js";
 import usePagination from "../../hooks/usePagination.js";
+import apiRequest from "../../hooks/apiRequest.js";
 
 function CommentBox({ videoId }) {
   const [newComment, setNewComment] = useState("");
@@ -19,22 +20,19 @@ function CommentBox({ videoId }) {
       content: newComment,
     };
     try {
-      const res = await fetch(
-        `https://vidshareforbackend.goutamdogri.com/api/v1/comments/v/video/${videoId}`,
+      const res = await apiRequest(
+        `/comments/v/video/${videoId}`,
+        "POST",
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newCommentData),
-          credentials: "include",
-        }
+          "Content-Type": "application/json",
+        },
+        JSON.stringify(newCommentData),
       );
-      const resJson = await res.json();
-      if (resJson.data.owner === user._id) {
-        resJson.data.owner = user;
+      // const resJson = await res.json();
+      if (res.data.owner === user._id) {
+        res.data.owner = user;
       }
-      setAddNewComment((prev) => [resJson.data, ...prev])
+      setAddNewComment((prev) => [res.data, ...prev])
       setNewComment("");
     } catch (error) {
       console.log(error);

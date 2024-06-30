@@ -75,7 +75,8 @@ function UploadVideo() {
               </button>
             </div>
             <div className="mx-auto flex w-full max-w-3xl flex-col gap-y-4 p-4">
-              <div className="w-full border-2 border-dashed px-4 py-12 text-center">
+              
+              {/* <div className="w-full border-2 border-dashed px-4 py-12 text-center">
                 <span className="mb-4 inline-block w-24 rounded-full bg-[#E4D3FF] p-4 text-[#AE7AFF]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -110,6 +111,28 @@ function UploadVideo() {
                   />
                   Select Files
                 </label>
+              </div> */}
+              <div className="w-full">
+                <label
+                  htmlFor="upload-video"
+                  className="mb-1 inline-block"
+                >
+                  Select Video File<sup>*</sup>
+                </label>
+                <input
+                    type="file"
+                    id="upload-video"
+                    className="w-full border p-1 file:mr-4 file:border-none file:bg-[#ae7aff] file:px-3 file:py-1.5"
+                    onChange={(e) => {
+                      setVideo(e.target.files[0]);
+                      if(e.target.files[0].size > 46 * 1024 * 1024) {
+                        alert("Video size should not exceed 45MB");
+                        setVideo(null);
+                        e.target.value = "";
+                      }
+                    }}
+                    accept="video/*"
+                  />
               </div>
               {ifEmptyVideo && (
                 <p className="text-red-500">Video can not be empty</p>
@@ -122,8 +145,16 @@ function UploadVideo() {
                 <input
                   id="thumbnail"
                   type="file"
+                  accept="image/*"
                   className="w-full border p-1 file:mr-4 file:border-none file:bg-[#ae7aff] file:px-3 file:py-1.5"
-                  onChange={(e) => setThumbnail(e.target.files[0])}
+                  onChange={(e) => {
+                    setThumbnail(e.target.files[0])
+                    if(e.target.files[0].size > 5 * 1024 * 1024) {
+                      alert("Thumbnail size should not exceed 5MB");
+                      setThumbnail(null);
+                      e.target.value = "";
+                    }
+                  }}
                 />
               </div>
               {ifEmptyThumbnail && (

@@ -17,16 +17,19 @@ async function apiRequest(url, method, header, body) {
   if (body) {
     aditionalInfo.body = body;
   }
-
-  let data;
+// https://vidshareforbackend.goutamdogri.com
+// http://localhost:8000
   try {
     const res = await fetch(`https://vidshareforbackend.goutamdogri.com/api/v1${url}`, aditionalInfo);
-    data = await res.json();
+    if (!res.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const resJson = await res.json();
+    return resJson;
   } catch (error) {
-    console.log(error);
+    console.error('Fetch error:', error);
+    return { success: false, error: error.message };
   }
-
-  return data;
 }
 
 export default apiRequest;

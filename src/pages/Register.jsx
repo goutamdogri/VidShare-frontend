@@ -3,6 +3,7 @@ import Input from "../components/utils/Input.jsx";
 import Button from "../components/utils/Button.jsx";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import apiRequest from "../hooks/apiRequest.js";
 
 function Register() {
   const [fullName, setFullName] = useState("");
@@ -25,17 +26,15 @@ function Register() {
     formData.append("coverImage", coverImage);
 
     try {
-      const response = await fetch(
-        "https://vidshareforbackend.goutamdogri.com/api/v1/users/register",
-        {
-          method: "POST",
-          body: formData,
-          credentials: "include",
-        }
+      const response = await apiRequest(
+        "/users/register",
+        "POST",
+        null,
+        formData,
       );
-      const resJson = await response.json();
+      // const resJson = await response.json();
 
-      if (resJson.success) {
+      if (response.success) {
         // 	document.cookie = `accessToken=${resJson.data.accessToken}`;
         // 	document.cookie = `refreshToken=${resJson.data.refreshToken}`;
         navigate("/");

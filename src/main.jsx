@@ -27,15 +27,14 @@ import Layout5 from "./Layout/Layout5.jsx";
 import EditPersonalInfo from "./components/edit/EditPersonalInfo.jsx";
 import EditChannelInfo from "./components/edit/EditChannelInfo.jsx";
 import ChangePassword from "./components/edit/ChangePassword.jsx";
-import Layout6 from "./Layout/Layout6.jsx";
 import AdminDashboard from "./components/dashboard/AdminDashboard.jsx";
 import LikedVideos from "./components/likedVideos/LikedVideos.jsx";
 import WatchHistory from "./components/watchHistory/WatchHistory.jsx";
 import Collections from "./components/collections/Collections.jsx";
-// import AuthCheck from "./components/utils/AuthCheck.jsx";
 import MyChannelPlaylist from "./components/myChannel/myPlaylist/MyChannelPlaylist.jsx";
 import MyChannelSubscriber from "./components/myChannel/mySubscribed/MyChannelSubscriber.jsx";
 import Feedback from "./components/feedback/Feedback.jsx";
+import { Analytics } from '@vercel/analytics/react';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,7 +42,6 @@ const router = createBrowserRouter(
       <Route path="" element={<Login />} />
       <Route path="register" element={<Register />} />
 
-      {/* <Route path="/" element={<AuthCheck />}> */}
       <Route path="video/" element={<Layout1 />}>
         <Route path=":videoId" element={<VideoPlay />} />
       </Route>
@@ -63,6 +61,18 @@ const router = createBrowserRouter(
         <Route path="watchHistory" element={<WatchHistory />} />
         <Route path="collections/:channelId" element={<Collections />} />
         <Route path="feedback" element={<Feedback />} />
+
+        <Route path="dashboard/">
+          <Route path="admin/:channelId" element={<AdminDashboard />} />
+          <Route
+            path="editVideo/:channelId/:videoId"
+            element={<AdminDashboard />}
+          />
+          <Route
+            path="deleteVideo/:channelId/:videoId"
+            element={<AdminDashboard />}
+          />
+        </Route>
       </Route>
 
       <Route path="channel/" element={<Layout3 />}>
@@ -93,19 +103,6 @@ const router = createBrowserRouter(
         <Route path="channelInfo/:channelId" element={<EditChannelInfo />} />
         <Route path="changepassword/:channelId" element={<ChangePassword />} />
       </Route>
-
-      <Route path="dashboard/" element={<Layout6 />}>
-        <Route path="admin/:channelId" element={<AdminDashboard />} />
-        <Route
-          path="editVideo/:channelId/:videoId"
-          element={<AdminDashboard />}
-        />
-        <Route
-          path="deleteVideo/:channelId/:videoId"
-          element={<AdminDashboard />}
-        />
-      </Route>
-      {/* </Route> */}
     </Route>
   )
 );
@@ -113,5 +110,6 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <UserContextProvider>
     <RouterProvider router={router} />
+    <Analytics />
   </UserContextProvider>
 );
