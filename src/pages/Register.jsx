@@ -4,14 +4,12 @@ import Button from "../components/utils/Button.jsx";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../hooks/apiRequest.js";
+import getGoogleOauthUrl from "../utils/getGoogleOauthUrl.js";
 
 function Register() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState(null);
-  const [coverImage, setCoverImage] = useState(null);
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
@@ -20,24 +18,76 @@ function Register() {
     const formData = new FormData();
     formData.append("fullName", fullName);
     formData.append("email", email);
-    formData.append("username", username);
     formData.append("password", password);
-    formData.append("avatar", avatar);
-    formData.append("coverImage", coverImage);
+
+    const coverImageCanvas = document.createElement("canvas");
+    coverImageCanvas.width = 1600;
+    coverImageCanvas.height = 600;
+    const avatarCanvas = document.createElement("canvas");
+    avatarCanvas.width = 300;
+    avatarCanvas.height = 300;
+
+    // Function to generate a random color
+    function getRandomColor() {
+      const letters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    const coverImageCTX = coverImageCanvas.getContext("2d");
+    const randomColor = getRandomColor();
+
+    // Set the canvas background to the random color
+    coverImageCTX.fillStyle = randomColor;
+    coverImageCTX.fillRect(
+      0,
+      0,
+      coverImageCanvas.width,
+      coverImageCanvas.height
+    );
+    await new Promise((resolve) => {
+      coverImageCanvas.toBlob(function (blob) {
+        formData.append("coverImage", blob, "coverImage.png");
+        resolve();
+      }, "image/png");
+    });
+
+    const avatarCanvasCTX = avatarCanvas.getContext("2d");
+
+    // Set the canvas background to the random color
+    avatarCanvasCTX.fillStyle = randomColor;
+    avatarCanvasCTX.fillRect(0, 0, avatarCanvas.width, avatarCanvas.height);
+    // Add the letter "D" in white color in the middle of the image
+    const letter = email.charAt(0).toUpperCase();
+    avatarCanvasCTX.font = "bold 150px Arial";
+    avatarCanvasCTX.fillStyle = "white";
+    avatarCanvasCTX.textAlign = "center";
+    avatarCanvasCTX.textBaseline = "middle";
+    avatarCanvasCTX.fillText(
+      letter,
+      avatarCanvas.width / 2,
+      avatarCanvas.height / 2
+    );
+    await new Promise((resolve) => {
+      avatarCanvas.toBlob((blob) => {
+        formData.append("avatar", blob, "avatar.png");
+        resolve();
+      }, "image/png");
+    });
 
     try {
       const response = await apiRequest(
         "/users/register",
         "POST",
         null,
-        formData,
+        formData
       );
-      // const resJson = await response.json();
 
       if (response.success) {
-        // 	document.cookie = `accessToken=${resJson.data.accessToken}`;
-        // 	document.cookie = `refreshToken=${resJson.data.refreshToken}`;
-        navigate("/");
+        navigate("/home");
       } else {
         // Registration failed, handle the error
         console.error("Registration failed:", response.statusText);
@@ -51,17 +101,15 @@ function Register() {
     <div className="h-screen overflow-y-auto bg-[#121212] text-white">
       <div className="mx-auto my-8 flex w-full max-w-sm flex-col px-4">
         <Logo />
-
         <div className="mb-6 w-full text-center text-2xl font-semibold uppercase">
           Play
         </div>
-
         <form
           onSubmit={handleSubmit}
           className="mx-auto flex w-full max-w-sm flex-col px-4"
         >
           <Input
-            label="Full Name *"
+            label="Full Name"
             type="text"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
@@ -70,7 +118,7 @@ function Register() {
             calssForLabel="text-gray-300"
           />
           <Input
-            label="Email *"
+            label="Email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -79,36 +127,11 @@ function Register() {
             calssForLabel="text-gray-300"
           />
           <Input
-            label="Username *"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter your Username"
-            className="mb-4 rounded-lg px-3 py-2"
-            calssForLabel="text-gray-300"
-          />
-          <Input
-            label="Password *"
+            label="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your Password"
-            className="mb-4 rounded-lg px-3 py-2"
-            calssForLabel="text-gray-300"
-          />
-          <Input
-            label="Avatar *"
-            type="file"
-            onChange={(e) => setAvatar(e.target.files[0])}
-            placeholder="upload your avatar"
-            className="mb-4 rounded-lg px-3 py-2"
-            calssForLabel="text-gray-300"
-          />
-          <Input
-            label="Cover Image (not necessary)"
-            type="file"
-            onChange={(e) => setCoverImage(e.target.files[0])}
-            placeholder="upload your Cover Image"
+            placeholder="Enter your password"
             className="mb-4 rounded-lg px-3 py-2"
             calssForLabel="text-gray-300"
           />
@@ -117,10 +140,14 @@ function Register() {
             Sign up with Email
           </Button>
         </form>
-
-        <Link to="/" className="px-4">
-          Login
+        <Link to="/" className="px-4 mt-3">
+          Already have an account?{" "}
+          <span className="text-[#ae7aff]">Log in</span>
         </Link>
+
+        <a className="px-4 mt-4" href={getGoogleOauthUrl()}>
+          <Button className="w-full py-3">Log in with Google</Button>
+        </a>
       </div>
     </div>
   );

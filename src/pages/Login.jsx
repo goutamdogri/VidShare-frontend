@@ -4,14 +4,12 @@ import Input from "../components/utils/Input.jsx";
 import Logo from "../components/utils/Logo.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../hooks/apiRequest.js";
+import getGoogleOauthUrl from "../utils/getGoogleOauthUrl.js";
 
 function Login() {
   const refreshToken = async () => {
     try {
-      const response = await apiRequest(
-        "/users/refresh-route",
-        "POST"
-      );
+      const response = await apiRequest("/users/refresh-route", "POST");
       // res.ok ? navigate("/home") : "";
       if (response.success) {
         navigate("/home");
@@ -38,12 +36,13 @@ function Login() {
       password: password,
     };
     try {
-      const response = await apiRequest("/users/login", 
+      const response = await apiRequest(
+        "/users/login",
         "POST",
         {
           "Content-Type": "application/json",
         },
-        JSON.stringify(requestData),
+        JSON.stringify(requestData)
       );
 
       if (response.success) {
@@ -89,9 +88,14 @@ function Login() {
             Sign in with Email
           </Button>
         </form>
-        <Link to="/register" className="px-4">
-          Create Account
+        <Link to="/register" className="px-4 mt-3">
+          Don&apos;t have an account?{" "}
+          <span className="text-[#ae7aff]">Create Account</span>
         </Link>
+
+        <a className="px-4 mt-4" href={getGoogleOauthUrl()}>
+          <Button className="w-full py-3">Log in with Google</Button>
+        </a>
       </div>
     </div>
   );
