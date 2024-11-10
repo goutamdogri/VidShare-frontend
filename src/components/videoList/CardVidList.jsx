@@ -12,7 +12,7 @@ function CardVidList({ endPoint = "" }) {
   } = usePagination(
     `/videos/?page=`,
     `&limit=9&sortBy=title&sortType=1&isPublished=true`
-  ); //💯if the hook function is async then it return promise.
+  );
 
   return (
     <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0 lg:ml-0">

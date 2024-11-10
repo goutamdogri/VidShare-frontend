@@ -1,5 +1,3 @@
-// NOTE: if this is a hook can not call this from a function that is based on button onclick or onsubmit or other event or other normal function directly. we can use usestate to store user event and based on that custom event handler function can be called but it make unnecessary rendering because some api request not change visual or any other continuous connection rather only add or remove data from database. i can always call this function from useEffect wherever useEffect is needed.
-
 async function apiRequest(url, method, header, body) {
   const aditionalInfo = {
     credentials: "include",
